@@ -7,6 +7,8 @@ git clone https://github.com/hammadrauf/adhan-kvm.git
 cd adhan-kvm
 cd tf*
 terraform init
+OR
+terraform init -upgrade
 terraform plan
 terraform deploy -auto-approve
 ```
