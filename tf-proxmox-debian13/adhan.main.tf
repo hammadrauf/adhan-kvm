@@ -87,14 +87,8 @@ resource "null_resource" "call_custom_script" {
   depends_on = [null_resource.wait_for_ssh_access]
   provisioner "local-exec" {
     command = <<EOT
-      ssh -o StrictHostKeyChecking=no -i ${var.pvt_key_file} ${var.superuser_username}@${module.debian13-cli.ip} " \
-        echo 'Running custom script...';  \
-        cd /home/${var.superuser_username};  \
-        git clone https://github.com/hammadrauf/adhan-tools.git;  \
-        cd adhan-tools;  \
-        chmod +x *.sh;  \
-        sudo ./install.sh;  \
-        echo 'Custom script execution completed.';"
+      scp -o StrictHostKeyChecking=no -i ${var.pvt_key_file} ./scripts/install_adhan.sh ${var.superuser_username}@${module.debian13-cli.ip}:/home/${var.superuser_username}/install_adhan.sh
+      ssh -o StrictHostKeyChecking=no -i ${var.pvt_key_file} ${var.superuser_username}@${module.debian13-cli.ip} "chmod +x /home/${var.superuser_username}/install_adhan.sh && /home/${var.superuser_username}/install_adhan.sh ${var.superuser_username}"
     EOT
   }
 }
