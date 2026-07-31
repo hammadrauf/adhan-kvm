@@ -48,7 +48,7 @@ module "debian13-cli" {
     memory_size=var.memory_size
     disk_size_boot=var.disk_size_boot
     disk_boot_ssd_enabled=var.disk_boot_ssd_enabled
-    docker_intalled=var.docker_intalled
+    docker_installed=var.docker_intalled
 }
 
 resource "null_resource" "disable_tmpfs_tmp_mount" {
